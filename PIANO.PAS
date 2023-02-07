@@ -24,12 +24,13 @@ BEGIN
      writeln('S,D,G,H,J - 1 octave #');
      writeln('2,3,5,6,7 - 2 octave #');
      writeln('Esc - exit');
+     
      asm
         cld
 @clearKbBuf:
-		mov   ah,01h
-		int   16h
-		jz    @clearKbBuf
+	mov   ah,01h
+	int   16h
+	jz    @clearKbBuf
 		
         xor   ah,ah
         int   16h
@@ -37,8 +38,8 @@ BEGIN
         cmp   ah,01h
         je    @exi
 
-		lea   di,scanCodes
-		mov   cx,arrSize
+	lea   di,scanCodes
+	mov   cx,arrSize
 
         rol   ax,8
         repne scasb
@@ -61,13 +62,13 @@ BEGIN
         out   61h,al
 @readScanCode:
         in    al,60h
-		or    al,al
-		jns   @readScanCode         {if btn unpressed}
+	or    al,al
+	jns   @readScanCode         {if btn unpressed}
 {----------Sound off----------}
-		in    al, 61h
-		and   al, 11111100b
-		out   61h,al
-		jmp   @clearKbBuf
+	in    al, 61h
+	and   al, 11111100b
+	out   61h,al
+	jmp   @clearKbBuf
 @exi:
      end;
      ClrScr;
